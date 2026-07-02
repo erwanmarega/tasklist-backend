@@ -133,3 +133,6 @@ dist/
 
 .scannerwork/
 
+
+# local env
+.env
