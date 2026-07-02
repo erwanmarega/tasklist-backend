@@ -9,7 +9,6 @@ pipeline {
         IMAGE_NAME      = 'tasklist-backend'
         IMAGE_TAG       = "${BUILD_NUMBER}"
         DOCKERHUB_CREDS = credentials('dockerhub-credentials')
-        // Docker Hub namespace comes from the credential username — no name hardcoded.
         IMAGE_REF       = "${DOCKERHUB_CREDS_USR}/tasklist-backend"
     }
 
@@ -69,8 +68,6 @@ pipeline {
 
         stage('SBOM (SPDX)') {
             steps {
-                // Generate an SPDX-format SBOM of the built image with Trivy,
-                // run from its official image (no local install needed).
                 sh """
                     docker run --rm \
                         -v /var/run/docker.sock:/var/run/docker.sock \
@@ -90,8 +87,6 @@ pipeline {
 
         stage('Trivy Scan') {
             steps {
-                // Report HIGH/CRITICAL vulnerabilities. exit-code 0 keeps the
-                // pipeline green so the image still publishes; set to 1 to gate.
                 sh """
                     docker run --rm \
                         -v /var/run/docker.sock:/var/run/docker.sock \
