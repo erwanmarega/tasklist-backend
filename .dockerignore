@@ -1,0 +1,10 @@
+node_modules
+dist
+coverage
+reports
+.scannerwork
+prisma/test.db
+prisma/schema-test.prisma
+src/__tests__
+*.log
+.env
